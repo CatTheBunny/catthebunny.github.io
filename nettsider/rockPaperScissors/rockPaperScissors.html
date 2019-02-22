@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="no">
+    <head>
+        <meta charset="utf-8">
+        <title>Rock, paper, scissors</title>
+        <link rel="stylesheet" href="stilark.css">
+        <link rel="shortcut icon" type="image/ico" href="../../bilder/2favicon.ico">
+
+        <script>
+            var generatedRandomNumber = 0;
+            var playerChoice = 0;
+            var AIchoice = 0;
+
+            function playerChoiceFunc(choice) {
+                playerChoice = choice;
+
+                if (playerChoice === 1) {
+                    document.getElementById("yourChoiceSpan").innerHTML = "You chose: rock";
+                } else if (playerChoice === 2) {
+                    document.getElementById("yourChoiceSpan").innerHTML = "You chose: paper";
+                } else if (playerChoice === 3) {
+                    document.getElementById("yourChoiceSpan").innerHTML = "You chose: scissors";
+                }
+            }
+
+            function shoot() {
+                getRandomNumber();
+                getAIchoice();
+                displayAIchoice();
+
+                if (playerChoice === 0) {
+                    sendAlert();
+                } else if (playerChoice === 1) {
+                    if (AIchoice === 1) {
+                        displayOutcome(0);
+                    } else if (AIchoice === 2) {
+                        displayOutcome(2);
+                    } else if (AIchoice === 3) {
+                        displayOutcome(1);
+                    }
+                } else if (playerChoice === 2) {
+                    if (AIchoice === 1) {
+                        displayOutcome(1);
+                    } else if (AIchoice === 2) {
+                        displayOutcome(0);
+                    } else if (AIchoice === 3) {
+                        displayOutcome(2);
+                    }
+                } else if (playerChoice === 3) {
+                    if (AIchoice === 1) {
+                        displayOutcome(2);
+                    } else if (AIchoice === 2) {
+                        displayOutcome(1);
+                    } else if (AIchoice === 3) {
+                        displayOutcome(0);
+                    }
+                }
+
+            }
+
+            function getRandomNumber() {
+                generatedRandomNumber = Math.random() * 100;
+            }
+
+            function getAIchoice() {
+                if (generatedRandomNumber < 100 / 3) {
+                    AIchoice = 1;
+                } else if ((generatedRandomNumber > 100 / 3) && (generatedRandomNumber < (100 / 3) * 2)) {
+                    AIchoice = 2;
+                } else if ((generatedRandomNumber > (100 / 3) * 2) && generatedRandomNumber < (100 / 3) * 3) {
+                    AIchoice = 3;
+                }
+            }
+
+            function displayAIchoice() {
+                if (AIchoice === 1) {
+                    document.getElementById("AIchoiceSpan").innerHTML = "AI chose: rock";
+                } else if (AIchoice === 2) {
+                    document.getElementById("AIchoiceSpan").innerHTML = "AI chose: paper";
+                } else if (AIchoice === 3) {
+                    document.getElementById("AIchoiceSpan").innerHTML = "AI chose: scissors";
+                }
+            }
+
+
+            // Draw if 0, player wins if 1, AI wins if 2.
+            function displayOutcome(result) {
+                if (result === 0) {
+                    document.getElementById("outcomeSpan").innerHTML = "The winner is: noone!";
+                } else if (result === 1) {
+                    document.getElementById("outcomeSpan").innerHTML = "The winner is: you!";
+                } else if (result === 2) {
+                    document.getElementById("outcomeSpan").innerHTML = "The winner is: the AI!";
+                }
+            }
+
+            function sendAlert() {
+                alert("You have to choose either rock, paper or scissors first.");
+            }
+        </script>
+    </head>
+
+    <body id="body">
+        <header class="border">
+            <div class="flexContainer">
+                <h1 id="headerHeadline">ROCK, PAPER, SCISSORS!</h1>
+            </div>
+        </header>
+        <nav class="border">
+            <table id="navTable">
+                <tr>
+                    <th class="navButton"><a href="../../index.html"><div>HOMEPAGE</div></a></th>
+                    <th class="navButton"><a href="../bouncybox/bouncyBox.html"><div>BOUNCY BOX</div></a></th>
+                    <th class="navButton"><a href="../canvasGame/canvasGame.html"><div>CANVAS GAME</div></a></th>
+                    <th class="navButton"><a href="../cookieClicker/cookieClicker.html"><div>COOKIE CLICKER</div></a></th>
+                    <th class="navButton"><a href="../rockPaperScissors/rockPaperScissors.html"><div>RPS</div></a></th>
+                    <th class="navButton"><a href="../throwDie/throwDie.html"><div>DICE ROLL</div></a></th>
+                </tr>
+            </table>
+        </nav>
+        <main>
+            <div id="buttonParent">
+                <div onclick="playerChoiceFunc(1)" class="boxButton">ROCK</div>
+                <div onclick="playerChoiceFunc(2)" class="boxButton">PAPER</div>
+                <div onclick="playerChoiceFunc(3)" class="boxButton">SCISSORS</div>
+            </div>
+            <section>
+                <div onclick="shoot()" id="rpsImgDiv">
+                    <img class="image" src="../../bilder/rockPaperScissors.png" alt="Image of a die">
+                </div>
+                <div id="resultDiv">
+                    <span id="yourChoiceSpan">You chose: </span><br>
+                    <span id="AIchoiceSpan">AI chose: </span><br>
+                    <span id="outcomeSpan">The winner is: </span>
+
+                </div>
+            </section>
+        </main>
+    </body>
+</html>

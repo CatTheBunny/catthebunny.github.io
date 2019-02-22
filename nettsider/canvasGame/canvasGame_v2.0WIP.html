@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="no">
+
+    <head>
+        <meta charset="utf-8">
+        <title>Canvas Game v2.0 WIP</title>
+        <link rel="stylesheet" href="stilark.css">
+
+        <script>
+
+            // window.onload = drawBox;
+            //var buttonFlag = false;
+
+            // List of variables:            
+
+            // Variables that have to do with the players position (both pieces)
+            var playerPiece1xPos = 370;
+            var playerPiece2xPos = 380;
+            var playerPiece1yPos = 310;
+            var playerPiece2yPos = 295;
+            var direction;
+
+            // Variables that has to do with the projectile
+            var projectileSpeed = 10;
+            var firstProjectilexPos = 0;
+            var firstProjectileyPos = 0;
+            var secondProjectilexPos = 0;
+            var secondProjectileyPos = 0;
+            var thirdProjectilexPos = 0;
+            var thirdProjectileyPos = 0;
+
+            var firstProjectileInUse = false;
+            var secondProjectileInUse = false;
+            var thirdProjectileInUse = false;
+
+            var firstProjectileInterval;
+            var secondProjectileInterval;
+            var thirdProjectileInterval;
+
+            // Debugging variables.
+            var timesDrawn = 0;
+            var projectileCount = 0;
+
+            /* Old unused code
+             function setFlag() {
+             if (buttonFlag === true) {
+             buttonFlag = false;
+             document.getElementById("setFlagButton").style.backgroundColor = "red";
+             } else {
+             buttonFlag = true;
+             document.getElementById("setFlagButton").style.backgroundColor = "green";
+             }
+             }
+             */
+
+            // Resets the program
+            function resetFunction() {
+                xCord = 0;
+                yCord = 0;
+            }
+
+            /* Old unused code
+             function drawBox() {
+             // var c = document.getElementById("boxCanvas");
+             var ctx = document.getElementById("myCanvas").getContext("2d");
+             ctx.strokeStyle = 000000;
+             ctx.lineWidth = 1;
+             ctx.beginPath();
+             
+             //ctx.moveTo(0, 0);
+             //ctx.lineTo(50, 50);
+             
+             ctx.rect(50, 50, 50, 50);
+             ctx.stroke();
+             
+             } */
+
+            // Creates the player on the canvas
+            function createPlayer() {
+                var ctx = document.getElementById("myCanvas").getContext("2d");
+                ctx.clearRect(1000, 1000, 800, 360);
+
+                ctx.strokeStyle = 000000;
+                ctx.lineWidth = 2;
+                ctx.beginPath();
+
+                ctx.rect(playerPiece1xPos, playerPiece1yPos, 40, 40);
+                ctx.rect(playerPiece2xPos, playerPiece2yPos, 20, 15);
+                ctx.stroke();
+            }
+
+            // Du må implementere slik at spilleren flytter på seg.
+            // Du har allerede laget slik at koordinatene blir endre ved keyevent
+
+            window.addEventListener("keydown", function (event) {
+
+                switch (event.key) {
+                    case "ArrowDown":
+                        movePlayer("down");
+                        break;
+                    case "ArrowUp":
+                        movePlayer("up");
+                        break;
+                    case "ArrowLeft":
+                        movePlayer("left");
+                        break;
+                    case "ArrowRight":
+                        movePlayer("right");
+                        break;
+                    case " ":
+                        shootProjectile();
+                        break;
+                    default:
+                        return; // Quit when this doesn't handle the key event.
+                }
+            });
+
+            function movePlayer(direction) {
+                if (direction === "right") {
+                    playerPiece1xPos = playerPiece1xPos + 5;
+                    playerPiece2xPos = playerPiece2xPos + 5;
+                } else if (direction === "left") {
+                    playerPiece1xPos = playerPiece1xPos - 5;
+                    playerPiece2xPos = playerPiece2xPos - 5;
+                } else if (direction === "up") {
+                    playerPiece1yPos = playerPiece1yPos - 1;
+                    playerPiece2yPos = playerPiece2yPos - 1;
+                } else if (direction === "down") {
+                    playerPiece1yPos = playerPiece1yPos + 1;
+                    playerPiece2yPos = playerPiece2yPos + 1;
+                }
+            }
+
+
+            // Shoots the initial projectile, and starts a interval 
+            // for the movement of the projectile
+            function shootProjectile() {
+                if (firstProjectileInUse === false) {
+                    firstProjectileInUse = true;
+                    firstProjectilexPos = playerPiece2xPos;
+                    firstProjectileyPos = playerPiece2yPos - 25;
+                    firstProjectileInterval = setInterval(drawProjectile(firstProjectilexPos, firstProjectileyPos), 100);
+                } else if (secondProjectileInUse === false) {
+                    secondProjectileInUse = true;
+                    secondProjectilexPos = playerPiece2xPos;
+                    secondProjectileyPos = playerPiece2yPos - 25;
+                    secondProjectileInterval = setInterval(projectileMovement, 100);
+                } else if (thirdProjectileInUse === false) {
+                    thirdProjectileInUse = true;
+                    thirdProjectilexPos = playerPiece2xPos;
+                    thirdProjectileyPos = playerPiece2yPos - 25;
+                    thirdProjectileInterval = setInterval(projectileMovement, 100);
+                } else {
+                    document.getElementbyId("testSpan").innerHTML = "You can only shoot 3 projectiles at a time";
+                }
+                /*
+                 projectileyPos = playerPiece2yPos - 25;
+                 projectilexPos = playerPiece2xPos + 5;
+                 var ctx = document.getElementById("myCanvas").getContext("2d");
+                 
+                 ctx.strokeStyle = 000000;
+                 //ctx.fillStyle = 134fad;
+                 ctx.lineWidth = 2;
+                 ctx.beginPath();
+                 
+                 ctx.rect(projectilexPos, projectileyPos, 10, 20);
+                 
+                 ctx.stroke();
+                 
+                 intervalVariable = setInterval(projectileMovement, 100);
+                 */
+            }
+
+            function projectileMovement() {
+                if (projectileyPos < -22) {
+                    clearInterval(intervalVariable);
+                } else {
+                    projectileCount++;
+                    document.getElementById("testSpan").innerHTML = "Projectile count: " + projectileCount;
+
+                    drawProjectile(projectilexPos, projectileyPos)
+
+                    var ctx = document.getElementById("myCanvas").getContext("2d");
+
+                    ctx.strokeStyle = 000000;
+                    //ctx.fillStyle = 144fad;
+                    ctx.lineWidth = 2;
+                    ctx.beginPath();
+                    ctx.clearRect(projectilexPos - 1, projectileyPos - 1, 12, 22);
+                    projectileyPos = projectileyPos - 25 - projectileSpeed;
+
+                    ctx.rect(projectilexPos, projectileyPos, 10, 20);
+
+                    ctx.stroke();
+                }
+            }
+
+            function drawProjectile(xPosition, yPosition) {
+                projectileCount++;
+                document.getElementById("testSpan").innerHTML = "Projectile count: " + projectileCount;
+
+                var ctx = document.getElementById("myCanvas").getContext("2d");
+
+                ctx.strokeStyle = 000000;
+                //ctx.fillStyle = 144fad;
+                ctx.lineWidth = 2;
+                ctx.beginPath();
+                ctx.clearRect(xPosition - 1, yPosition - 1, 12, 22);
+                yPosition = yPosition - 25 - projectileSpeed;
+
+                ctx.rect(xPosition, yPosition, 10, 20);
+
+                ctx.stroke();
+            }
+
+            function moveBox() {
+
+                var ctx = document.getElementById("myCanvas").getContext("2d");
+                ctx.clearRect(0, 0, 250, 250);
+
+                ctx.strokeStyle = 000000;
+                ctx.lineWidth = 2;
+                ctx.beginPath();
+
+                ctx.rect(xCord, yCord, 20, 20);
+                ctx.stroke();
+
+                xCord = xCord + xSpeed;
+                yCord = yCord + ySpeed;
+
+                xSpeed = xSpeed + xAcceleration;
+                ySpeed = ySpeed + yAcceleration;
+
+                timesDrawn++;
+                document.getElementById("testSpan").innerHTML = "Box drawn " + timesDrawn + " times.";
+
+                if (xCord >= 230 || xCord <= 0) {
+                    //setFlag();
+                    //clearInterval(intervalVariable);    
+                    xSpeed = -xSpeed;
+                }
+
+                if (yCord >= 230 || yCord <= 0) {
+                    ySpeed = -ySpeed;
+                }
+            }
+
+        </script>
+
+    </head>
+
+    <body id="body">
+        <header class="border">
+            <div class="flexContainer">
+                <h1 id="headerHeadline">Aleksander Bakken</h1>
+                <div id="buttonParent">
+                    <div onclick="createPlayer()" class="boxButton" id="createPlayerButton">CREATE PLAYER</div>
+                    <div onclick="shootProjectile()" class="boxButton" id="shootProjectileButton">SHOOT PROJECTILE</div>
+                    <div onclick="intervalFunction()" class="boxButton" id="moveBoxButton">START INTERVAL</div>
+                    <div onclick="resetFunction()" class="boxButton" id="resetButton">RESET</div>
+                </div>
+            </div>
+        </header>
+        <nav class="border">
+            <table id="navTable">
+                <tr>
+                    <th class="navButton">Link1</th>
+                    <th class="navButton">Link2</th>
+                    <th class="navButton">Link3</th>
+                    <th class="navButton">Link4</th>
+                    <th class="navButton">Link5</th>
+                    <th class="navButton">Link6</th>
+                </tr>
+            </table>
+        </nav>
+        <main>
+            <canvas id="myCanvas" class="border" height="360px" width="800px">
+            </canvas><br>
+            <span id="testSpan">test</span>
+        </main>
+    </body>
+</html>

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="no">
+
+    <head>
+        <meta charset="utf-8">
+        <title>Bouncy box</title>
+        <link rel="stylesheet" href="stilark.css">
+        <link rel="shortcut icon" type="image/ico" href="../../bilder/favicon2.ico">
+
+        <script>
+
+            var intervalVariable;
+            var xCord = 0;
+            var yCord = 0;
+            var xSpeed = 0.7;
+            var ySpeed = 0.5;
+            var xAcceleration = 0.02;
+            var yAcceleration = 0.005;
+
+            var timesDrawn = 0;
+
+            function darkmode() {
+                if (document.getElementById("body").style.backgroundColor === "grey") {
+                    document.getElementById("body").style.backgroundColor = "white";
+                } else {
+                    document.getElementById("body").style.backgroundColor = "grey";
+                }
+            }
+
+            function intervalFunction() {
+                intervalVariable = setInterval(moveBox, 10);
+                document.getElementById("testSpan").innerHTML = "Got through intervalFunction()";
+            }
+
+            function resetFunction() {
+                xCord = 0;
+                yCord = 0;
+
+                xSpeed = 0.9;
+                ySpeed = 1;
+            }
+
+            function moveBox() {
+
+                var ctx = document.getElementById("myCanvas").getContext("2d");
+                ctx.clearRect(0, 0, 250, 250);
+
+                ctx.strokeStyle = 000000;
+                ctx.lineWidth = 2;
+                ctx.beginPath();
+
+                ctx.rect(xCord, yCord, 20, 20);
+                ctx.stroke();
+
+                xCord = xCord + xSpeed;
+                yCord = yCord + ySpeed;
+
+                xSpeed = xSpeed + xAcceleration;
+                ySpeed = ySpeed + yAcceleration;
+
+                timesDrawn++;
+                document.getElementById("testSpan").innerHTML = "Box drawn " + timesDrawn + " times.";
+
+                if (xCord >= 230 || xCord <= 0) {
+                    xSpeed = -xSpeed;
+                }
+
+                if (yCord >= 230 || yCord <= 0) {
+                    ySpeed = -ySpeed;
+                }
+            }
+        </script>
+    </head>
+
+    <body id="body">
+        <header class="border">
+            <div class="flexContainer">
+                <h1 id="headerHeadline">BOUNCY BOX</h1>
+            </div>
+        </header>
+        <nav class="border">
+            <table id="navTable">
+                <tr>
+                    <th class="navButton"><a href="../../index.html"><div>HOMEPAGE</div></a></th>
+                    <th class="navButton"><a href="../bouncybox/bouncyBox.html"><div>BOUNCY BOX</div></a></th>
+                    <th class="navButton"><a href="../canvasGame/canvasGame.html"><div>CANVAS GAME</div></a></th>
+                    <th class="navButton"><a href="../cookieClicker/cookieClicker.html"><div>COOKIE CLICKER</div></a></th>
+                    <th class="navButton"><a href="../rockPaperScissors/rockPaperScissors.html"><div>RPS</div></a></th>
+                    <th class="navButton"><a href="../throwDie/throwDie.html"><div>DICE ROLL</div></a></th>
+                </tr>
+            </table>
+        </nav>
+        <main>
+            <div id="buttonParent">
+                <div onclick="intervalFunction()" class="boxButton" id="moveBoxButton">START INTERVAL</div>
+                <div onclick="resetFunction()" class="boxButton" id="resetButton">RESET</div>
+            </div>
+            <canvas id="myCanvas" class="border" height="250px" width="250px">
+            </canvas><br>
+            <span id="testSpan">Counter</span>
+        </main>
+    </body>
+</html>

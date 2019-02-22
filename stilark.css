@@ -1,0 +1,105 @@
+.border {
+    border-color: gold;
+    border-style: solid;
+    border-width: 2px;
+}
+.flexContainer {
+    flex-direction: row;
+}
+.tekstDiv {
+    order: 0;
+    height: 190px;
+    width: 75%;
+}
+.imageDiv {
+    order: 1;
+    margin-left: 4px;
+}
+.bildetekst {
+    font-size: 12px;
+    margin: 0px 0px 0px 0px;
+}
+.brodtekst {
+    max-width: 90%;
+    padding: 2px 2px 2px 2px;
+}
+.image {
+    position: relative;
+    max-width: 30vw;
+    margin: 2px 2px 2px 2px;
+    padding-right: 2px;
+}
+.navButton {
+    height: 30px;
+    border: 2px gold solid;
+}
+.navButton:hover {
+    background-color: #999999;
+    cursor: pointer;
+}
+.navButton a {
+    color: white;
+    text-decoration: none;
+}
+.navButtonText {
+    margin-left: 15%;
+    margin-top: 7px;
+}
+.navLink {
+    text-decoration: none;
+    color: #000000;
+}
+#navTable {
+    height: 100%;
+    width: 100%;
+    padding: 4px;
+}
+#navList {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+#headerHeadline {
+    margin-left: 8px;
+    margin-right: 0;
+    width: 70%;
+    order: 0;
+}
+#artiklerDiv {
+    display: flex;
+    flex-direction: row;
+}
+nav {
+    position: relative;
+    height: 50px;
+    margin-top: 2px;
+}
+section {
+    order: 0;
+    position: relative;
+    margin-top: 2px;
+    display: flex;
+    flex-direction: column;
+}
+aside {
+    order: 1;
+    position: relative;
+    width: 100%;
+    margin-bottom: 6px;
+    margin-left: 2px;
+}
+article {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    margin: 2px 2px 2px 2px;
+    padding-left: 2px;
+}
+header {
+
+}
+body {
+    font-family: arial;
+    color: white;
+    background-color: #707070;
+}

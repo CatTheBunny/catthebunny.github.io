@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="no">
+    <head>
+        <meta charset="utf-8">
+        <title>Throw die</title>
+        <link rel="stylesheet" href="stilark.css">
+        <link rel="shortcut icon" type="image/ico" href="../../bilder/favicon2.ico">
+
+        <script>
+            var generatedRandomNumber = 0;
+            var test = false;
+
+            function throwDie() {
+                getRandomNumber();
+                if (generatedRandomNumber <= 100 / 6) {
+                    displayResult(1);
+                } else if ((generatedRandomNumber >= 100 / 6) && (generatedRandomNumber <= ((100 / 6) * 2))) {
+                    displayResult(2);
+                } else if ((generatedRandomNumber >= ((100 / 6) * 2)) && (generatedRandomNumber <= ((100 / 6) * 3))) {
+                    displayResult(3);
+                } else if ((generatedRandomNumber >= ((100 / 6) * 3)) && (generatedRandomNumber <= ((100 / 6) * 4))) {
+                    displayResult(4);
+                } else if ((generatedRandomNumber >= ((100 / 6) * 4)) && (generatedRandomNumber <= ((100 / 6) * 5))) {
+                    displayResult(5);
+                } else if ((generatedRandomNumber >= ((100 / 6) * 5)) && (generatedRandomNumber <= ((100 / 6) * 6))) {
+                    displayResult(6);
+                }
+            }
+
+            function getRandomNumber() {
+                generatedRandomNumber = Math.random() * 100;
+                document.getElementById("rngSpan").innerHTML = "RNG: " + generatedRandomNumber;
+            }
+
+            function displayResult(result) {
+                document.getElementById("resultSpan").innerHTML = "You rolled a " + result + ".";
+            }
+        </script>
+    </head>
+
+    <body id="body">
+        <header class="border">
+            <div class="flexContainer">
+                <h1 id="headerHeadline">THROW DIE</h1>
+            </div>
+        </header>
+        <nav class="border">
+            <table id="navTable">
+                <tr>
+                    <th class="navButton"><a href="../../index.html"><div>HOMEPAGE</div></a></th>
+                    <th class="navButton"><a href="../bouncybox/bouncyBox.html"><div>BOUNCY BOX</div></a></th>
+                    <th class="navButton"><a href="../canvasGame/canvasGame.html"><div>CANVAS GAME</div></a></th>
+                    <th class="navButton"><a href="../cookieClicker/cookieClicker.html"><div>COOKIE CLICKER</div></a></th>
+                    <th class="navButton"><a href="../rockPaperScissors/rockPaperScissors.html"><div>RPS</div></a></th>
+                    <th class="navButton"><a href="../throwDie/throwDie.html"><div>DICE ROLL</div></a></th>
+                </tr>
+            </table>
+        </nav>
+        <main>
+            <section>
+                <div onclick="throwDie()" id="dieDiv">
+                    <img class="image" src="../../bilder/dice.png" alt="Image of a die">
+                </div>
+                <div id="resultDiv">
+                    <span id="rngSpan">RNG: 0</span><br>
+                    <span id="resultSpan">You rolled a 0.</span>
+                </div>
+            </section>
+        </main>
+    </body>
+</html>

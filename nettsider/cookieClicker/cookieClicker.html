@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="no">
+    <head>
+        <meta charset="utf-8">
+        <title>Cookie clicker</title>
+        <link rel="stylesheet" href="stilark.css">
+        <link rel="shortcut icon" type="image/ico" href="../../bilder/favicon2.ico">
+
+        <script>
+            var cookieTotal = 0;
+            var cookieGain = 1;
+            var cookieGainMultiplier = 1;
+
+            function cookieClicked() {
+
+                cookieTotal = cookieTotal + (cookieGain * cookieGainMultiplier);
+
+                document.getElementById("totalCookieCount").innerHTML = "You have " + cookieTotal + " cookies.";
+            }
+
+            // Upgrade that costs 25 cookies. Increases cookie gained by clicking
+            // by 1 for each time the upgrade is bought.
+            function upgradeTier1() {
+                if (cookieTotal >= 25) {
+                    cookieTotal = cookieTotal - 25;
+                    cookieGainMultiplier = cookieGainMultiplier + 1;
+
+                    document.getElementById("cookiesPerClick").innerHTML = "You will gain " + cookieGainMultiplier + " cookies per click.";
+                    document.getElementById("totalCookieCount").innerHTML = "You have " + cookieTotal + " cookies.";
+
+                }
+            }
+
+            // Upgrade that costs 50 cookies. Increases cookie gained by clicking
+            // by 5 for each time the upgrade is bought.
+            function upgradeTier2() {
+                if (cookieTotal >= 50) {
+                    cookieTotal = cookieTotal - 50;
+                    cookieGainMultiplier = cookieGainMultiplier + 5;
+
+                    document.getElementById("cookiesPerClick").innerHTML = "You will gain " + cookieGainMultiplier + " cookies per click.";
+                    document.getElementById("totalCookieCount").innerHTML = "You have " + cookieTotal + " cookies.";
+
+                }
+            }
+
+            // Upgrade that costs 100 cookies. Increases cookie gained by clicking
+            // by 25 for each time the upgrade is bought.
+            function upgradeTier3() {
+                if (cookieTotal >= 100) {
+                    cookieTotal = cookieTotal - 100;
+                    cookieGainMultiplier = cookieGainMultiplier + 25;
+
+                    document.getElementById("cookiesPerClick").innerHTML = "You will gain " + cookieGainMultiplier + " cookies per click.";
+                    document.getElementById("totalCookieCount").innerHTML = "You have " + cookieTotal + " cookies.";
+
+                }
+            }
+
+            // Upgrade that costs 1000 cookies. Increases cookies gained by clicking
+            // Doubles the amount per click for each time the upgrade is bought.
+            function upgradeTier4() {
+                if (cookieTotal >= 1000) {
+                    cookieTotal = cookieTotal - 1000;
+                    cookieGainMultiplier = cookieGainMultiplier * 2;
+
+                    document.getElementById("cookiesPerClick").innerHTML = "You will gain " + cookieGainMultiplier + " cookies per click.";
+                    document.getElementById("totalCookieCount").innerHTML = "You have " + cookieTotal + " cookies.";
+
+                }
+            }
+        </script>
+    </head>
+
+    <body id="body">
+        <header class="border">
+            <div class="flexContainer">
+                <h1 id="headerHeadline">COOKIE CLICKER</h1>
+            </div>
+        </header>
+        <nav class="border">
+            <table id="navTable">
+                <tr>
+                    <th class="navButton"><a href="../../index.html"><div>HOMEPAGE</div></a></th>
+                    <th class="navButton"><a href="../bouncybox/bouncyBox.html"><div>BOUNCY BOX</div></a></th>
+                    <th class="navButton"><a href="../canvasGame/canvasGame.html"><div>CANVAS GAME</div></a></th>
+                    <th class="navButton"><a href="../cookieClicker/cookieClicker.html"><div>COOKIE CLICKER</div></a></th>
+                    <th class="navButton"><a href="../rockPaperScissors/rockPaperScissors.html"><div>RPS</div></a></th>
+                    <th class="navButton"><a href="../throwDie/throwDie.html"><div>DICE ROLL</div></a></th>
+                </tr>
+            </table>
+        </nav>
+        <main>
+            <div id="buttonParent">
+                <div onclick="upgradeTier1()" class="boxButton">+1 per click<br>Costs 25</div>
+                <div onclick="upgradeTier2()" class="boxButton">+5 per click<br>Costs 50</div>
+                <div onclick="upgradeTier3()" class="boxButton">+25 per click<br>Costs 100</div>
+                <div onclick="upgradeTier4()" class="boxButton">2 * per click<br>Costs 1000</div>
+            </div>
+            <section>
+                <div onclick="cookieClicked()" id="cookieDiv">
+                    <img class="image" src="../../bilder/cookie.png" alt="Image of a cookie">
+                </div>
+                <span id="totalCookieCount">You have 0 cookies.</span><br>
+                <span id="cookiesPerClick">You will gain 1 cookie per click.</span>
+            </section>
+            <br>
+        </main>
+    </body>
+</html>
