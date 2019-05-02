@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="no">
+    <head>
+        <meta charset="utf-8">
+        <title>JS Form</title>
+        <link rel="stylesheet" href="stilark.css">
+        <link rel="shortcut icon" type="image/ico" href="bilder/favicon2.ico">
+
+        <script>
+        var username;
+        var movieName;
+        var rating;
+        var recommend;
+        var watchAgain;
+        var qualityCheck;
+        var usernameQuality;
+        var movieNameQuality;
+        var ratingQuality;
+        var recommendQuality;
+        var watchAgainQuality;
+
+        function submitForm() {
+          username = document.getElementById("username").value;
+          movieName = document.getElementById("movieName").value;
+          rating = document.getElementById("personalRating").value;
+          recommend = document.querySelector('input[name="recommendMovie"]:checked').value;
+          watchAgain = document.querySelector('input[name="watchAgain"]:checked').value;
+
+          qualityControl();
+        }
+
+        function qualityControl() {
+          if (username == "") {
+            usernameQuality = false;
+          }
+          else {
+            usernameQuality = true;
+          }
+
+          if (movieName == "") {
+            movieNameQuality = false;
+          }
+          else {
+            movieNameQuality = true;
+          }
+
+          if ((rating == "") || (rating < 1) || (rating > 10)) {
+            ratingQuality = false;
+          }
+          else {
+            ratingQuality = true;
+          }
+
+          if ((recommend != "No") && (recommend != "Yes")) {
+            recommendQuality = false;
+          }
+          else {
+            recommendQuality = true;
+          }
+
+          if ((watchAgain != "No") && (watchAgain != "Yes")) {
+            watchAgainQuality = false;
+          }
+          else {
+            watchAgainQuality = true;
+          }
+
+
+          if ((usernameQuality == true) && (movieNameQuality == true) && (ratingQuality == true) && (recommendQuality == true) && (watchAgainQuality == true)) {
+            qualityCheck = true;
+            fillInSpans();
+          }
+          else {
+            alert("Something was input incorrectly, please look over your answers and try again.");
+          }
+        }
+
+        function fillInSpans() {
+          if (qualityCheck == true) {
+            document.getElementById("usernameSpan").innerHTML = username;
+            document.getElementById("movieNameSpan").innerHTML = movieName;
+            document.getElementById("personalRatingSpan").innerHTML = rating;
+            document.getElementById("recommendMovieSpan").innerHTML = recommend;
+            document.getElementById("watchAgainSpan").innerHTML = watchAgain;
+
+            document.getElementById("reviewSection").style.visibility = "visible";
+          }
+        }
+
+
+        </script>
+    </head>
+    <body id="body">
+        <header class="border">
+            <div class="flexContainer">
+                <h1 id="headerHeadline">JAVASCRIPT FORM</h1>
+            </div>
+        </header>
+        <nav class="border">
+            <table id="navTable">
+                <tr>
+                    <th class="navButton"><a href="index.html"><div>HOMEPAGE</div></a></th>
+                    <th class="navButton"><a href="forms.html"><div>JS FORMS</div></a></th>
+                </tr>
+            </table>
+        </nav>
+        <main>
+            <div id="reviewContainer">
+                <section class="border">
+                  <table class="reviewTable">
+                    <tr><th colspan="2">MOVIE REVIEW</th></tr>
+                    <tr>
+                      <th>Your username:</th>
+                      <th><input type="text" id="username" placeholder="Username" required></th>
+                    </tr>
+                    <tr>
+                      <th>Name of the movie:</th>
+                      <th><input type="text" id="movieName" placeholder="Movie name" required></th>
+                    </tr>
+                    <tr>
+                      <th>Your rating (from 1 to 10):</th>
+                      <th><input type="number" min="1" max="10" value="1" id="personalRating" required></th>
+                    </tr>
+                    <tr>
+                      <th>Would you recommend the movie?</th>
+                      <th>Yes<input type="radio" name="recommendMovie" value="Yes" checked id="recommendMovieYes">No<input type="radio" name="recommendMovie" value="No" id="recommendMovieNo"></th>
+                    </tr>
+                    <tr>
+                      <th>Would you watch it again?</th>
+                      <th>Yes:<input type="radio" name="watchAgain" value="Yes" checked id="watchAgainYes">No:<input type="radio" name="watchAgain" value="No" id="watchAgainNo"></th>
+                    </tr>
+                    <tr>
+                      <th colspan="2" class="endTh"><button onclick="submitForm()">SUBMIT</button></th>
+                    </tr>
+                    </table>
+                </section>
+                <section class="border" id="reviewSection">
+                  <div>
+                    <table class="reviewTable">
+                      <tr><th colspan="2">Movie review by <span id="usernameSpan"></span></th></tr>
+                      <tr>
+                        <th>Name of the movie:</th>
+                        <th><span id="movieNameSpan"></span></th>
+                      </tr>
+                      <tr>
+                        <th>Personal rating:</th>
+                        <th><span id="personalRatingSpan"></span></th>
+                      </tr>
+                      <tr>
+                        <th>Would you recommend the movie?</th>
+                        <th><span id="recommendMovieSpan"></span></th>
+                      </tr>
+                      <tr class="endTr">
+                        <th class="endTh">Would you watch it again?</th>
+                        <th class="endTh"><span id="watchAgainSpan"></span></th>
+                      </tr>
+                      </table>
+                  </div>
+                </section>
+            </div>
+        </main>
+    </body>
+</html>

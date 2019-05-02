@@ -49,6 +49,22 @@
     text-decoration: none;
     color: #000000;
 }
+.reviewTable {
+  height: 50%;
+  width: 50%;
+  margin: 4px;
+}
+table.reviewTable tr th {
+  text-align: left;
+  border-bottom: solid black 1px;
+}
+table.reviewTable tr th.endTh {
+  text-align: left;
+  border-bottom: none black 0px;;
+}
+#reviewSection {
+  visibility: hidden;
+}
 #navTable {
     height: 100%;
     width: 100%;
@@ -69,6 +85,10 @@
     display: flex;
     flex-direction: row;
 }
+#reviewContainer {
+    display: flex;
+    flex-direction: column;
+}
 nav {
     position: relative;
     height: 50px;
@@ -80,6 +100,7 @@ section {
     margin-top: 2px;
     display: flex;
     flex-direction: column;
+    width: 100%;
 }
 aside {
     order: 1;
